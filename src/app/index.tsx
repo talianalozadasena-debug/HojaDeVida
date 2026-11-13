@@ -1,98 +1,142 @@
-import * as Device from 'expo-device';
-import { Platform, StyleSheet } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-import { AnimatedIcon } from '@/components/animated-icon';
-import { HintRow } from '@/components/hint-row';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { WebBadge } from '@/components/web-badge';
-import { BottomTabInset, MaxContentWidth, Spacing } from '@/constants/theme';
+import { Ionicons } from "@expo/vector-icons";
+import MiBoton from "../components,/MiBoton";
 
-function getDevMenuHint() {
-  if (Platform.OS === 'web') {
-    return <ThemedText type="small">use browser devtools</ThemedText>;
-  }
-  if (Device.isDevice) {
-    return (
-      <ThemedText type="small">
-        shake device or press <ThemedText type="code">m</ThemedText> in terminal
-      </ThemedText>
-    );
-  }
-  const shortcut = Platform.OS === 'android' ? 'cmd+m (or ctrl+m)' : 'cmd+d';
+export default function Inicio() {
   return (
-    <ThemedText type="small">
-      press <ThemedText type="code">{shortcut}</ThemedText>
-    </ThemedText>
-  );
-}
+    <ScrollView style={styles.fondo}>
+      <View style={styles.contenedor}>
+        <View style={styles.perfil}>
+          <View style={styles.avatar}>
+            <Ionicons name="person" size={55} color="#FFFFFF" />
+          </View>
 
-export default function HomeScreen() {
-  return (
-    <ThemedView style={styles.container}>
-      <SafeAreaView style={styles.safeArea}>
-        <ThemedView style={styles.heroSection}>
-          <AnimatedIcon />
-          <ThemedText type="title" style={styles.title}>
-            Welcome to&nbsp;Expo
-          </ThemedText>
-        </ThemedView>
+          <Text style={styles.nombre}>Karen Taliana Lozada Lambraño</Text>
 
-        <ThemedText type="code" style={styles.code}>
-          get started
-        </ThemedText>
+          <Text style={styles.titulacion}>
+            Estudiante de Análisis y Desarrollo de Software
+          </Text>
+        </View>
 
-        <ThemedView type="backgroundElement" style={styles.stepContainer}>
-          <HintRow
-            title="Try editing"
-            hint={<ThemedText type="code">src/app/index.tsx</ThemedText>}
+        <View style={styles.tarjeta}>
+          <Text style={styles.tituloSeccion}>Sobre mí</Text>
+
+          <Text style={styles.descripcion}>
+            Soy aprendiz del SENA en formación en el programa Tecnólogo en
+            Análisis y Desarrollo de Software, con formación previa como técnica
+            en el mismo campo. Tengo conocimientos básicos en desarrollo web,
+            lógica de programación y bases de datos. Me caracterizo por ser
+            responsable, organizada y tener buena disposición para aprender.
+          </Text>
+        </View>
+
+        <View style={styles.tarjeta}>
+          <Text style={styles.tituloSeccion}>Mis habilidades</Text>
+
+          {[
+            "HTML y CSS",
+            "JavaScript",
+            "SQL y bases de datos",
+            "Git",
+            "Análisis de requerimientos",
+            "Diseño de interfaces web",
+            "Trabajo en equipo",
+          ].map((habilidad, index) => (
+            <View key={index} style={styles.habilidad}>
+              <Ionicons name="checkmark-circle" size={19} color="#8B5CF6" />
+              <Text style={styles.textoHabilidad}>{habilidad}</Text>
+            </View>
+          ))}
+        </View>
+
+        <View style={styles.tarjeta}>
+          <Text style={styles.tituloSeccion}>Contacto</Text>
+
+          <MiBoton
+            texto="Enviar correo"
+            mensaje="Puedes consultar mi información de contacto."
+            icono="mail-outline"
           />
-          <HintRow title="Dev tools" hint={getDevMenuHint()} />
-          <HintRow
-            title="Fresh start"
-            hint={<ThemedText type="code">npm run reset-project</ThemedText>}
-          />
-        </ThemedView>
 
-        {Platform.OS === 'web' && <WebBadge />}
-      </SafeAreaView>
-    </ThemedView>
+          <MiBoton
+            texto="Llamar"
+            mensaje="Información de contacto telefónico."
+            icono="call-outline"
+          />
+
+          <MiBoton
+            texto="Ver proyectos"
+            mensaje="Aquí podrás consultar mis proyectos de formación."
+            icono="logo-github"
+          />
+        </View>
+      </View>
+    </ScrollView>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  fondo: {
     flex: 1,
-    justifyContent: 'center',
-    flexDirection: 'row',
+    backgroundColor: "#F5F0FF",
   },
-  safeArea: {
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    alignItems: 'center',
-    gap: Spacing.three,
-    paddingBottom: BottomTabInset + Spacing.three,
-    maxWidth: MaxContentWidth,
+  contenedor: {
+    padding: 20,
+    paddingTop: 35,
   },
-  heroSection: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    paddingHorizontal: Spacing.four,
-    gap: Spacing.four,
+  perfil: {
+    alignItems: "center",
+    marginBottom: 25,
   },
-  title: {
-    textAlign: 'center',
+  avatar: {
+    width: 110,
+    height: 110,
+    borderRadius: 55,
+    backgroundColor: "#8B5CF6",
+    alignItems: "center",
+    justifyContent: "center",
+    marginBottom: 15,
   },
-  code: {
-    textTransform: 'uppercase',
+  nombre: {
+    fontSize: 24,
+    fontWeight: "bold",
+    color: "#39245F",
+    textAlign: "center",
   },
-  stepContainer: {
-    gap: Spacing.three,
-    alignSelf: 'stretch',
-    paddingHorizontal: Spacing.three,
-    paddingVertical: Spacing.four,
-    borderRadius: Spacing.four,
+  titulacion: {
+    fontSize: 14,
+    color: "#777777",
+    textAlign: "center",
+    marginTop: 8,
+  },
+  tarjeta: {
+    backgroundColor: "#FFFFFF",
+    padding: 18,
+    borderRadius: 16,
+    marginBottom: 18,
+    elevation: 2,
+  },
+  tituloSeccion: {
+    fontSize: 19,
+    fontWeight: "bold",
+    color: "#8B5CF6",
+    marginBottom: 12,
+  },
+  descripcion: {
+    fontSize: 14,
+    color: "#555555",
+    lineHeight: 23,
+    textAlign: "justify",
+  },
+  habilidad: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginVertical: 5,
+    gap: 9,
+  },
+  textoHabilidad: {
+    fontSize: 14,
+    color: "#555555",
   },
 });
